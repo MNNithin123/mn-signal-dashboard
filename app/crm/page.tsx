@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import {
   Activity, ArrowUpRight, Bell, Building2, CalendarDays, CheckCircle2,
   ChevronRight, Clock3, Download, LayoutDashboard, Mail, Menu, MoreHorizontal,
-  Phone, Search, Settings2, Target, TrendingUp, Users, Wallet, X, Zap
+  Phone, Plus, Search, Settings2, Target, TrendingUp, Users, Wallet, X, Zap
 } from 'lucide-react';
 
 type Stage = 'New' | 'Contacted' | 'Qualified' | 'Closed';
