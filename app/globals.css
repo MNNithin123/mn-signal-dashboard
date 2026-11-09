@@ -19,6 +19,32 @@ button { cursor: pointer; }
 button:disabled { cursor: not-allowed; }
 ::selection { background: #d1fae5; color: #064e3b; }
 :focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+
+/* Retained for the original dashboard at / while the CRM workspace lives at /crm. */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 24px -2px rgba(15, 23, 42, 0.04);
+}
+.glass-panel {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+.glass-button {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  transition: all 0.2s ease;
+}
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(15, 23, 42, 0.15);
+  transform: translateY(-1px);
+}
 ::-webkit-scrollbar { width: 7px; height: 7px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
