@@ -12,6 +12,7 @@ export interface Lead {
   budget?: string;
   location?: string;
   source?: string;
+  message?: string;
 }
 
 function readPlainText(property: any): string | undefined {
@@ -41,8 +42,8 @@ function mapNotionPage(page: any): Lead {
   const interestProp =
     props['Buy / Sell'] ||
     props['Property Interest'] ||
-    props['Interest'] ||
-    props['Message'];
+    props['Interest'];
+  const messageProp = props['Message'] || props['Enquiry'] || props['Description'];
 
   const dateProp = props['Date'];
   const statusProp = props['Status'];
@@ -76,7 +77,7 @@ function mapNotionPage(page: any): Lead {
   let status: Lead['status'] = 'New';
   if (/contact|progress/i.test(rawStatus)) status = 'Contacted';
   else if (/qualif/i.test(rawStatus)) status = 'Qualified';
-  else if (/clos|sold|won/i.test(rawStatus)) status = 'Closed';
+  else if (/clos|done|complete|sold|won/i.test(rawStatus)) status = 'Closed';
 
   const budget = readPlainText(budgetProp);
 
@@ -91,6 +92,7 @@ function mapNotionPage(page: any): Lead {
     budget,
     location: locationProp?.select?.name || readPlainText(locationProp),
     source: sourceProp?.select?.name || readPlainText(sourceProp),
+    message: readPlainText(messageProp),
   };
 }
 
