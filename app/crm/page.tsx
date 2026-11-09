@@ -72,7 +72,7 @@ export default function CRMPage() {
           source: String(lead.source || 'Not recorded'),
           date: dateValue,
           status: statusValue,
-          initials: name.split(/\\s+/).slice(0, 2).map((part: string) => part[0] || '').join('').toUpperCase() || 'NA',
+          initials: name.split(/\s+/).slice(0, 2).map((part: string) => part[0] || '').join('').toUpperCase() || 'NA',
         };
       });
       setLeads(mapped);
