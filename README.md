@@ -7,7 +7,7 @@ A Next.js dashboard for viewing real-estate leads from Notion. It supports a pub
 - `/` — original dashboard with its Notion live-mode integration.
 - `/crm` — refreshed CRM-style workspace preview with overview metrics, searchable lead directory, lead profile drawer, visual sales pipeline, and an automation blueprint.
 
-The `/crm` page currently uses fictional Indian-market sample records so the visual CRM can be explored without credentials. It is intentionally read-only: it does not write to Notion or claim that Make.com is connected. The existing Notion-connected dashboard remains available at `/`.
+The `/crm` page starts in fictional Indian-market demo mode and can be switched to a read-only Notion data source. It includes overview metrics, a searchable lead directory, clickable lead profiles, enquiry messages, a visual sales pipeline, and an automation blueprint. It does not write to Notion or claim that Make.com is connected. The original dashboard remains available at `/`.
 
 ## What the original dashboard does
 
@@ -32,7 +32,7 @@ Run `npm run typecheck` and `npm run build` to check the project before deployme
 
 1. Create an internal integration in Notion and keep its secret private.
 2. Share the leads database with the integration.
-3. Add `NOTION_API_KEY`, `NOTION_DATABASE_ID`, `DASHBOARD_USERNAME`, and `DASHBOARD_PASSWORD` as server-side environment variables.
+3. Share the correct Notion data source with the integration. Add `NOTION_API_KEY`, `NOTION_DATABASE_ID` (the data source ID queried by the SDK), `DASHBOARD_USERNAME`, and `DASHBOARD_PASSWORD` as server-side environment variables.
 4. Test access and field mapping with sample records before using customer data.
 
 Never commit `.env.local`, tokens, passwords, or real customer records. Do not put a Notion token in a `NEXT_PUBLIC_...` variable.
