@@ -27,10 +27,14 @@ export async function GET() {
   } catch (error) {
     // Detailed error stays in server logs; do not leak integration details to visitors.
     console.error('MN Signal: Notion lead fetch failed', error);
+    const errorCode = typeof error === 'object' && error !== null && 'code' in error
+      ? String((error as { code?: unknown }).code || 'NOTION_REQUEST_FAILED')
+      : 'NOTION_REQUEST_FAILED';
     return NextResponse.json(
       {
         success: false,
-        error: 'Could not load leads from Notion. Check the integration token, database ID, database sharing permissions, and property setup in Vercel.',
+        error: 'Could not load leads from Notion. Check the integration connection, data source ID, database sharing, and property setup.',
+        errorCode,
       },
       { status: 502, headers: { 'Cache-Control': 'no-store' } },
     );
