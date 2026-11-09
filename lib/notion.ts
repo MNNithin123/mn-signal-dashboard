@@ -10,6 +10,8 @@ export interface Lead {
   dateCaptured: string;
   status: 'New' | 'Contacted' | 'Qualified' | 'Closed';
   budget?: string;
+  location?: string;
+  source?: string;
 }
 
 function readPlainText(property: any): string | undefined {
@@ -45,6 +47,8 @@ function mapNotionPage(page: any): Lead {
   const dateProp = props['Date'];
   const statusProp = props['Status'];
   const budgetProp = props['Budget'];
+  const locationProp = props['Area'] || props['Location'] || props['City'];
+  const sourceProp = props['Source'] || props['Lead Source'] || props['Channel'];
 
   const name = readPlainText(nameProp) || 'Unnamed Lead';
   const email = emailProp?.email || readPlainText(emailProp) || 'No email';
@@ -60,7 +64,7 @@ function mapNotionPage(page: any): Lead {
     interest = readPlainText(interestProp)!;
   }
 
-  const rawDate = readPlainText(dateProp) || page.created_time;
+  const rawDate = dateProp?.date?.start || readPlainText(dateProp) || page.created_time;
   const parsedDate = new Date(rawDate);
   const dateCaptured = Number.isNaN(parsedDate.getTime())
     ? new Date().toISOString().slice(0, 10)
@@ -72,7 +76,7 @@ function mapNotionPage(page: any): Lead {
   let status: Lead['status'] = 'New';
   if (/contact|progress/i.test(rawStatus)) status = 'Contacted';
   else if (/qualif/i.test(rawStatus)) status = 'Qualified';
-  else if (/clos|sold|won|done/i.test(rawStatus)) status = 'Closed';
+  else if (/clos|sold|won/i.test(rawStatus)) status = 'Closed';
 
   const budget = readPlainText(budgetProp);
 
@@ -85,6 +89,8 @@ function mapNotionPage(page: any): Lead {
     dateCaptured,
     status,
     budget,
+    location: locationProp?.select?.name || readPlainText(locationProp),
+    source: sourceProp?.select?.name || readPlainText(sourceProp),
   };
 }
 
